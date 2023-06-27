@@ -1,6 +1,6 @@
 const isLogged = true;
 
-function firstP() {
+function firstP(isLogged) {
   return new Promise((resolve, reject) => {
     if (isLogged === true) {
       resolve(Math.random());
@@ -10,27 +10,30 @@ function firstP() {
   });
 }
 
-function secondP() {
+function secondP(firstP) {
   return new Promise((resolve, reject) => {
-    let num = Math.random();
-    if (num > 0.5) {
+    if ( firstP > 0.5) {
       resolve({ name: "John", age: 24 });
     } else {
-      reject("error!");
+      reject(" second error!");
     }
   });
 }
 
-// firstP.then((val) => console.log(val)).catch((err) => console.error(err));
+// firstP()
+//  .then((val) => console.log(val))
+//  .catch((err) =>console.log(err))
 
-// secondP.then((val) => console.log(val)).catch((err) => console.error(err));
+// secondP(firstP())
+//  .then((val) => console.log(val))
+//  .catch((err) => console.error(err));
 
-// console.log(firstP);
-// console.log(secondP);
-
-firstP()
-  .then(secondP)
+firstP(isLogged)
+  .then((result) => secondP(result))
   .then((val) => console.log(val))
-  .catch((err) => console.error(err));
+  .catch((err) => console.error(err))
 
-console.log(firstP);
+
+
+
+
